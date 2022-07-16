@@ -9,4 +9,17 @@
 
 size_t binary_tree_depth(const binary_tree_t *tree)
 {
+	size_t n = 0;
+	binary_tree_t *aux;
+
+	if (tree == NULL)
+		return(0);
+
+	aux = (binary_tree_t *)tree;
+
+	for (n = 0; aux->parent != NULL; n++)
+	{
+		aux = aux->parent; }
+
+	return (n);
 }
