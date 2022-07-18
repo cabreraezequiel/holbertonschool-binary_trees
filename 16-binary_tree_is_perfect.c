@@ -1,32 +1,8 @@
 #include <stdlib.h>
 #include "binary_trees.h"
 
-int depth(const binary_tree_t *node) {
-	int d = 0;
-	while (node != NULL) {
-		d++;
-		node = node->left;
-	}
-	return d;
-}
-
-int is_perfect(const binary_tree_t *root, int d, int level)
-{
-	if (root == NULL)
-		return (0);
-
-	if (root->left == NULL && root->right == NULL)
-		return (d == level + 1);
-
-	if (root->left == NULL || root->right == NULL)
-		return (1);
-
-	return is_perfect(root->left, d, level + 1) &&
-		is_perfect(root->right, d, level + 1);
-}
-
 /**
- * binary_tree_is_full - function that checks if a binary tree is full
+ * binary_tree_is_perfect - function that checks if a binary tree is perfect
  * @tree: pointer to the root node of the tree to check
  * Return: 1 if perfect, otherwise 0
  */
@@ -36,8 +12,13 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 
-	int d = depth(tree);
-	return is_perfect(tree, d, 0);
+	if (binary_tree_is_leaf(tree) == 1)
+		return (1);
+
+	if (binary_tree_height(tree->right) != binary_tree_height(tree->left))
+		return (0);
+	else
+		return (1);
 }
 
 /**
