@@ -15,10 +15,12 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (binary_tree_is_leaf(tree) == 1)
 		return (1);
 
-	if (binary_tree_height(tree->right) != binary_tree_height(tree->left))
-		return (0);
+	if (binary_tree_height(tree->right) == binary_tree_height(tree->left))
+		return (binary_tree_is_perfect(tree->left) &&
+			binary_tree_is_perfect(tree->right));
+
 	else
-		return (1);
+		return (0);
 }
 
 /**
