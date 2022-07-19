@@ -16,39 +16,34 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	binary_tree_t *aux_f = (binary_tree_t *) first;
 	binary_tree_t *aux_s = (binary_tree_t *) second;
 
-	if (depth_first < depth_second)
+	if (first == NULL || second == NULL)
+		return (NULL);
+
+	while (depth_first < depth_second)
 	{
-		while (depth_first < depth_second)
-		{
-			aux_s = aux_s->parent;
-			depth_first++; }
-		while (aux_f->n != aux_s->n)
-		{
-			aux_f = aux_f->parent;
-			aux_s = aux_s->parent; }
-		return (aux_f);
+		if (aux_s->parent == NULL)
+			return (NULL);
+		aux_s = aux_s->parent;
+		depth_first++;
 	}
-	if (depth_second < depth_first)
+
+	while (depth_second < depth_first)
 	{
-		while (depth_second < depth_first)
-		{
-			aux_f = aux_f->parent;
-			depth_second++; }
-		while (aux_f->n != aux_s->n)
-		{
-			aux_f = aux_f->parent;
-			aux_s = aux_s->parent; }
-		return (aux_f);
+		if (aux_f->parent == NULL)
+			return (NULL);
+		aux_f = aux_f->parent;
+		depth_second++;
 	}
-	if (depth_second == depth_first)
+
+	while (aux_f->n != aux_s->n)
 	{
-		while (aux_f->n != aux_s->n)
-		{
-			aux_f = aux_f->parent;
-			aux_s = aux_s->parent; }
-		return (aux_f);
+		if (aux_f->parent == NULL || aux_s->parent == NULL)
+			return (NULL);
+		aux_f = aux_f->parent;
+		aux_s = aux_s->parent;
 	}
-	return (NULL);
+
+	return (aux_f);
 }
 
 /**
