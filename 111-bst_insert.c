@@ -12,24 +12,24 @@
 
 bst_t *bst_insert_aux(binary_tree_t *tree, int value)
 {
-    if (value < (tree)->n)
-    {
+	if (value < (tree)->n)
+	{
 		if ((tree)->left == NULL)
-        	(tree)->left = binary_tree_insert_left(tree, value);
+			(tree)->left = binary_tree_insert_left(tree, value);
 		else
 			(tree)->left = bst_insert_aux(tree->left, value);
-    }
-    else if (value > (tree)->n)
-    {
+	}
+	else if (value > (tree)->n)
+	{
 		if ((tree)->right == NULL)
-        	(tree)->right = binary_tree_insert_right(tree, value);
+			(tree)->right = binary_tree_insert_right(tree, value);
 		else
 		{
 			(tree)->right = bst_insert_aux(tree->right, value);
 		}
-    }
+	}
 
-    return (tree);
+	return (tree);
 }
 
 /**
@@ -41,41 +41,38 @@ bst_t *bst_insert_aux(binary_tree_t *tree, int value)
 
 bst_t *bst_insert(bst_t **tree, int value)
 {
-    bst_t *node;
+	bst_t *node;
 
-    node = malloc(sizeof(bst_t));
+	node = malloc(sizeof(bst_t));
 
 	if (node == NULL)
 		return (NULL);
 
-    if (*tree == NULL)
-    {
-        *tree = binary_tree_node(node, value);
-    }
+	if (*tree == NULL)
+	{
+		*tree = binary_tree_node(node, value);
+	}
 
 	node->n = value;
 
-    // if (value == (*tree)->n)
-    //     return (NULL);
-
-    if (value < (*tree)->n)
-    {
+	if (value < (*tree)->n)
+	{
 		if ((*tree)->left == NULL)
-        	(*tree)->left = binary_tree_insert_left(node, value);
+			(*tree)->left = binary_tree_insert_left(node, value);
 		else
 			return (bst_insert_aux((*tree)->left, value));
-    }
-    else if (value > (*tree)->n)
-    {
+	}
+	else if (value > (*tree)->n)
+	{
 		if ((*tree)->right == NULL)
-        	(*tree)->right = binary_tree_insert_right(node, value);
+			(*tree)->right = binary_tree_insert_right(node, value);
 		else
 		{
 			return (bst_insert_aux((*tree)->right, value));
 		}
-    }
+	}
 
-    return (node);
+	return (node);
 }
 /**
  * binary_tree_insert_left - inserts a node as the left-child of another node
@@ -137,7 +134,7 @@ binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value)
 	{
 		new_node->right = parent->right;
 		parent->right->parent = new_node;
-    }
+	}
 
 	new_node->parent = parent;
 	parent->right = new_node;
