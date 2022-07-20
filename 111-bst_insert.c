@@ -12,24 +12,33 @@
 
 bst_t *bst_insert_aux(binary_tree_t *tree, int value)
 {
+	binary_tree_t *node;
+
+	node = malloc(sizeof(binary_tree_t));
+
+	if (node == NULL)
+		return (NULL);
+
+	node->n = value;
+
 	if (value < (tree)->n)
 	{
 		if ((tree)->left == NULL)
-			(tree)->left = binary_tree_insert_left(tree, value);
+			(tree)->left = binary_tree_insert_left(node, value);
 		else
 			(tree)->left = bst_insert_aux(tree->left, value);
 	}
 	else if (value > (tree)->n)
 	{
 		if ((tree)->right == NULL)
-			(tree)->right = binary_tree_insert_right(tree, value);
+			(tree)->right = binary_tree_insert_right(node, value);
 		else
 		{
 			(tree)->right = bst_insert_aux(tree->right, value);
 		}
 	}
 
-	return (tree);
+	return (node);
 }
 
 /**
@@ -93,13 +102,14 @@ binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 	if (new_node == NULL)
 		return (NULL);
 
-
 	new_node->n = value;
 	new_node->left = NULL;
 	new_node->right = NULL;
 
 	if (parent->left != NULL)
 	{
+		if (parent->left->n == value)
+			return (NULL);
 		new_node->left = parent->left;
 		parent->left->parent = new_node;
 	}
@@ -132,6 +142,8 @@ binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value)
 	new_node->left = NULL;
 	if (parent->right != NULL)
 	{
+		if (parent->right->n == value)
+			return (NULL);
 		new_node->right = parent->right;
 		parent->right->parent = new_node;
 	}
