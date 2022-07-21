@@ -12,26 +12,17 @@
 
 bst_t *bst_insert_aux(binary_tree_t *tree, int value)
 {
-	binary_tree_t *node = NULL;
-
-	node = malloc(sizeof(binary_tree_t));
-
-	if (node == NULL)
-		return (NULL);
-
-	node->n = value;
-
 	if (value < tree->n)
 	{
 		if (tree->left == NULL)
-			return (tree->left = binary_tree_insert_left(node, value));
+			return (tree->left = binary_tree_insert_left(tree, value));
 
 		return (bst_insert_aux(tree->left, value));
 	}
 	else if (value > tree->n)
 	{
 		if (tree->right == NULL)
-			return (tree->right = binary_tree_insert_right(node, value));
+			return (tree->right = binary_tree_insert_right(tree, value));
 
 		return (bst_insert_aux(tree->right, value));
 	}
